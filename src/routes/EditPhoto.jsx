@@ -12,20 +12,25 @@ const EditPhoto = () => {
 
   const editPhoto = async (e) => {
     e.preventDefault();
-    await fetch(`https://gallery-app-server.vercel.app/photos/${id}`, {
-      method: "PATCH",
-      headers: {
-        // HTTP headers
-        "Content-Type": "application/json", // type data yang dikirim
-      },
-      body: JSON.stringify({
-        imageUrl: imageUrl,
-        captions: captions,
-        createdAt: "2019-10-30T14:01:59.689Z",
-        updatedAt: "2022-05-06T13:14:50.000Z",
-      }),
-    });
-    navigate("/photos");
+
+    try {
+      await fetch(`https://gallery-app-server.vercel.app/photos/${id}`, {
+        method: "PATCH",
+        headers: {
+          // HTTP headers
+          "Content-Type": "application/json", // type data yang dikirim
+        },
+        body: JSON.stringify({
+          imageUrl: imageUrl,
+          captions: captions,
+          createdAt: "2019-10-30T14:01:59.689Z",
+          updatedAt: "2022-05-06T13:14:50.000Z",
+        }),
+      });
+      navigate("/photos");
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const getDefaultData = async (id) => {
